@@ -7,8 +7,11 @@ export class EducationInput {
   @Field(() => String, { nullable: false })
   title: string;
 
-  @Field(() => String, { nullable: false })
-  level: string;
+  @Field(() => Date, { nullable: false })
+  startedAt: Date;
+
+  @Field(() => Date, { nullable: false })
+  endAt: Date;
 }
 
 @ObjectType()
@@ -16,8 +19,11 @@ export class EducationType {
   @Field(() => String, { nullable: false })
   title: string;
 
-  @Field(() => String, { nullable: false })
-  level: string;
+  @Field(() => Date, { nullable: false })
+  startedAt: Date;
+
+  @Field(() => Date, { nullable: false })
+  endAt: Date;
 }
 
 @Schema()
@@ -26,7 +32,10 @@ export class Education extends Document {
   title: string;
 
   @Prop()
-  level: string;
+  startedAt: Date;
+
+  @Prop()
+  endAt: Date;
 }
 
 export const EducationSchema = SchemaFactory.createForClass(Education);

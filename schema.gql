@@ -20,8 +20,14 @@ type LanguageType {
 
 type EducationType {
   title: String!
-  level: String!
+  startedAt: DateTime!
+  endAt: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type User {
   _id: String!
@@ -36,11 +42,6 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type StackType {
   title: String!
@@ -141,7 +142,8 @@ input LanguageInput {
 
 input EducationInput {
   title: String!
-  level: String!
+  startedAt: DateTime!
+  endAt: DateTime!
 }
 
 input AttachementInput {
