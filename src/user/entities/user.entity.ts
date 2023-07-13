@@ -41,7 +41,7 @@ export class User {
 
   @Prop({ type: [EducationSchema] })
   @Field(() => [EducationType], { nullable: true })
-  education?: Record<string, string>[] | null;
+  educations?: Record<string, string>[] | null;
 
   @Prop({ type: [AttachmentSchema] })
   @Field(() => [AttachmentType], { nullable: true })

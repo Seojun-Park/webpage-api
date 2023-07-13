@@ -14,6 +14,9 @@ export class CreateWorkInput {
   repositoryLink?: string | null;
 
   @Field(() => [AttachementInput], { nullable: true })
+  images?: Record<string, string>[] | null;
+
+  @Field(() => [AttachementInput], { nullable: true })
   attachments?: Record<string, string>[] | null;
 
   @Field(() => [StackInput], { nullable: true })

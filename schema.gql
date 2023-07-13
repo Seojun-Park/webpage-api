@@ -37,7 +37,7 @@ type User {
   thumbnail: String!
   contacts: [ContactType!]
   languages: [LanguageType!]
-  education: [EducationType!]
+  educations: [EducationType!]
   attachments: [AttachmentType!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -168,6 +168,7 @@ input CreateWorkInput {
   title: String!
   description: String!
   repositoryLink: String
+  images: [AttachementInput!]
   attachments: [AttachementInput!]
   stacks: [StackInput!]
 }
@@ -181,6 +182,7 @@ input UpdateWorkInput {
   title: String
   description: String
   repositoryLink: String
+  images: [AttachementInput!]
   attachments: [AttachementInput!]
   stacks: [StackInput!]
   _id: String!
