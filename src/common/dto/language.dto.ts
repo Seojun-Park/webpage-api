@@ -1,6 +1,15 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+@InputType()
+export class LanguageInput {
+  @Field(() => String, { nullable: false })
+  title: string;
+
+  @Field(() => String, { nullable: false })
+  level: string;
+}
 
 @ObjectType()
 export class LanguageType {
