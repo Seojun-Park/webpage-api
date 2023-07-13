@@ -1,10 +1,13 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Schema as MongooseSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { LanguageSchema, LanguageType } from '../dto/language.dto';
-import { EducationSchema, EducationType } from '../dto/education.dto';
-import { AttachmentType } from '../dto/attachment.dto';
-import { ContactSchema, ContactType } from '../dto/contact.dto';
+import {
+  AttachmentSchema,
+  AttachmentType,
+} from '../../common/dto/attachment.dto';
+import { ContactSchema, ContactType } from '../../common/dto/contact.dto';
+import { LanguageSchema, LanguageType } from '../../common/dto/language.dto';
+import { EducationSchema, EducationType } from '../../common/dto/education.dto';
 
 @Schema()
 @ObjectType()
@@ -40,7 +43,7 @@ export class User {
   @Field(() => [EducationType], { nullable: true })
   education?: Record<string, string>[] | null;
 
-  @Prop({ type: [AttachmentType] })
+  @Prop({ type: [AttachmentSchema] })
   @Field(() => [AttachmentType], { nullable: true })
   attachments?: Record<string, string>[] | null;
 
