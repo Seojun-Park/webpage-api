@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { AttachmentType } from '../../common/dto/attachment.dto';
-import { StackType } from '../../common/dto/stack.dto';
+import { AttachementInput } from '../../common/dto/attachment.dto';
+import { StackInput } from '../../common/dto/stack.dto';
 
 @InputType()
 export class CreateWorkInput {
@@ -13,9 +13,9 @@ export class CreateWorkInput {
   @Field(() => String, { nullable: true })
   repositoryLink?: string | null;
 
-  @Field(() => [AttachmentType], { nullable: true })
+  @Field(() => [AttachementInput], { nullable: true })
   attachments?: Record<string, string>[] | null;
 
-  @Field(() => [StackType], { nullable: true })
+  @Field(() => [StackInput], { nullable: true })
   stacks?: Record<string, string>[] | null;
 }

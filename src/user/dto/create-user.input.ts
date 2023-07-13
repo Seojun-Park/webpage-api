@@ -1,8 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { ContactType } from '../../common/dto/contact.dto';
-import { LanguageType } from '../../common/dto/language.dto';
-import { EducationType } from '../../common/dto/education.dto';
-import { AttachmentType } from '../../common/dto/attachment.dto';
+import { ContactInput } from '../../common/dto/contact.dto';
+import { LanguageInput } from '../../common/dto/language.dto';
+import { EducationInput } from '../../common/dto/education.dto';
+import { AttachementInput } from '../../common/dto/attachment.dto';
 
 @InputType()
 export class CreateUserInput {
@@ -18,15 +18,15 @@ export class CreateUserInput {
   @Field(() => String, { nullable: false })
   thumbnail: string;
 
-  @Field(() => [ContactType], { nullable: true })
+  @Field(() => [ContactInput], { nullable: true })
   contacts?: Record<string, string>[] | null;
 
-  @Field(() => [LanguageType], { nullable: true })
+  @Field(() => [LanguageInput], { nullable: true })
   languages?: Record<string, string>[] | null;
 
-  @Field(() => [EducationType], { nullable: true })
+  @Field(() => [EducationInput], { nullable: true })
   educations?: Record<string, string>[] | null;
 
-  @Field(() => [AttachmentType], { nullable: true })
+  @Field(() => [AttachementInput], { nullable: true })
   attachments?: Record<string, string>[] | null;
 }

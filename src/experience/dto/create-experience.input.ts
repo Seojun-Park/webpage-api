@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { StackType } from '../../common/dto/stack.dto';
+import { StackInput } from '../../common/dto/stack.dto';
 
 @InputType()
 export class CreateExperienceInput {
@@ -12,7 +12,7 @@ export class CreateExperienceInput {
   @Field(() => String, { nullable: true })
   link?: string | null;
 
-  @Field(() => [StackType], { nullable: true })
+  @Field(() => [StackInput], { nullable: true })
   stacks?: Record<string, string>[] | null;
 
   @Field(() => Date, { nullable: false })
