@@ -1,35 +1,41 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UsersReturnType } from '../common/dto/returnType.dto';
+import { PaginationArgs } from '../common/dto/paginate.input';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.userService.create(createUserInput);
+  async createUser(@Args('args') args: CreateUserInput) {
+    return await this.userService.create(args);
   }
 
-  @Query(() => [User], { name: 'user' })
-  findAll() {
-    return this.userService.findAll();
+  @Query(() => UsersReturnType, { name: 'users' })
+  async findAll(
+    @Args('args', { nullable: true }) args?: PaginationArgs,
+  ): Promise<UsersReturnType> {
+    return await this.userService.findAll(args);
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  async findOne(
+    @Args('_id', { type: () => String }) _id: string,
+  ): Promise<User> {
+    return await this.userService.findOne(_id);
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
+  async updateUser(@Args('args') args: UpdateUserInput): Promise<User> {
+    return await this.userService.update(args);
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.remove(id);
+  async removeUser(@Args('_id', { type: () => String }) _id: string) {
+    return await this.userService.remove(_id);
   }
 }

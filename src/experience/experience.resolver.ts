@@ -1,35 +1,43 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ExperienceService } from './experience.service';
 import { Experience } from './entities/experience.entity';
 import { CreateExperienceInput } from './dto/create-experience.input';
 import { UpdateExperienceInput } from './dto/update-experience.input';
+import { ExperiencesReturnType } from '../common/dto/returnType.dto';
+import { PaginationArgs } from '../common/dto/paginate.input';
 
 @Resolver(() => Experience)
 export class ExperienceResolver {
   constructor(private readonly experienceService: ExperienceService) {}
 
   @Mutation(() => Experience)
-  createExperience(@Args('createExperienceInput') createExperienceInput: CreateExperienceInput) {
-    return this.experienceService.create(createExperienceInput);
+  async createExperience(@Args('args') args: CreateExperienceInput) {
+    return await this.experienceService.create(args);
   }
 
-  @Query(() => [Experience], { name: 'experience' })
-  findAll() {
-    return this.experienceService.findAll();
+  @Query(() => ExperiencesReturnType, { name: 'experiences' })
+  async findAll(
+    @Args('args', { nullable: true }) args?: PaginationArgs,
+  ): Promise<ExperiencesReturnType> {
+    return await this.experienceService.findAll(args);
   }
 
   @Query(() => Experience, { name: 'experience' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.experienceService.findOne(id);
+  async findOne(
+    @Args('_id', { type: () => String }) _id: string,
+  ): Promise<Experience> {
+    return await this.experienceService.findOne(_id);
   }
 
   @Mutation(() => Experience)
-  updateExperience(@Args('updateExperienceInput') updateExperienceInput: UpdateExperienceInput) {
-    return this.experienceService.update(updateExperienceInput.id, updateExperienceInput);
+  async updateExperience(
+    @Args('args') args: UpdateExperienceInput,
+  ): Promise<Experience> {
+    return await this.experienceService.update(args);
   }
 
   @Mutation(() => Experience)
-  removeExperience(@Args('id', { type: () => Int }) id: number) {
-    return this.experienceService.remove(id);
+  async removeExperience(@Args('_id', { type: () => String }) _id: string) {
+    return await this.experienceService.remove(_id);
   }
 }
